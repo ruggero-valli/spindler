@@ -50,7 +50,7 @@ class Solver():
         # Define the differential equation's right hand side
         def f(m,U):
             a,q,e = U
-            Da = self.get_DA(q,e)
+            Da = self.get_Da(q,e)
             De = self.get_De(q,e)
             Dq = self.get_Dq(q,e)
             dadm = Da*a/m
@@ -120,7 +120,7 @@ class Solver():
             ArrayLike: dlogE/dlogm
         """
         
-        Da = self.get_DA(q,e)
+        Da = self.get_Da(q,e)
         Dq = self.get_Dq(q,e)
         
         # By differentiating the orbital energy
@@ -141,7 +141,7 @@ class Solver():
             ArrayLike: dlogJ/dlogm
         """
         
-        Da = self.get_DA(q,e)
+        Da = self.get_Da(q,e)
         De = self.get_De(q,e)
         Dq = self.get_Dq(q,e)
 
@@ -176,7 +176,7 @@ class Solver_Siwek23(Solver):
     It is defined for eccentricity between 0 and 0.8, and mass ratio between 0.1
     and 1.
     """
-    def __init__(self, path_to_tables = "tables/"):
+    def __init__(self, path_to_tables = "../tables/"):
         # Read the tables from Siwek et al 2023
         adota_table = pd.read_csv(path_to_tables+"adota_siwek23.csv")
         adota_table.columns = [float(x) for x in adota_table.columns]
@@ -251,7 +251,7 @@ class Solver_DD21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self, path_to_tables = "tables/"):
+    def __init__(self, path_to_tables = "../tables/"):
         # Read the tables from D'Orazio and Duffell 2021
         adota_table = pd.read_csv(path_to_tables+"adota_DD21.csv")
         edot_table = pd.read_csv(path_to_tables+"edot_DD21.csv")
@@ -319,7 +319,7 @@ class Solver_Zrake21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self, path_to_tables = "tables/"):
+    def __init__(self, path_to_tables = "../tables/"):
         # Read the tables from Zrake+2021
         adota_table = pd.read_csv(path_to_tables+"adota_zrake21.csv")
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
