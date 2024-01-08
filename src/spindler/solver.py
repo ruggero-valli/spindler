@@ -176,7 +176,7 @@ class Solver_Siwek23(Solver):
     It is defined for eccentricity between 0 and 0.8, and mass ratio between 0.1
     and 1.
     """
-    def __init__(self, path_to_tables = "../tables/"):
+    def __init__(self, path_to_tables = "../../tables/"):
         # Read the tables from Siwek et al 2023
         adota_table = pd.read_csv(path_to_tables+"adota_siwek23.csv")
         adota_table.columns = [float(x) for x in adota_table.columns]
@@ -251,7 +251,7 @@ class Solver_DD21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self, path_to_tables = "../tables/"):
+    def __init__(self, path_to_tables = "../../tables/"):
         # Read the tables from D'Orazio and Duffell 2021
         adota_table = pd.read_csv(path_to_tables+"adota_DD21.csv")
         edot_table = pd.read_csv(path_to_tables+"edot_DD21.csv")
@@ -319,7 +319,7 @@ class Solver_Zrake21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self, path_to_tables = "../tables/"):
+    def __init__(self, path_to_tables = "../../tables/"):
         # Read the tables from Zrake+2021
         adota_table = pd.read_csv(path_to_tables+"adota_zrake21.csv")
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
