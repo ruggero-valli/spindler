@@ -1,8 +1,8 @@
 import unittest
 import numpy as np
-import spindler.src.spindler.solver as spindler
 
-from spindler.src.spindler.solver import RegularGridInterpolatorNNextrapol, Solver_DD21, Solver_Siwek23, Solver_Zrake21
+from spindler.src.solver import Solver_DD21, Solver_Siwek23, Solver_Zrake21
+from spindler.src.interpolator import RegularGridInterpolatorNNextrapol
 
 class TestRegularGridInterpolatorNNextrapol(unittest.TestCase):
 

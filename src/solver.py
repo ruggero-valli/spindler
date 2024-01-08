@@ -1,9 +1,14 @@
+from __future__ import annotations
+
 import numpy as np
 import pandas as pd
-
 from numpy.typing import ArrayLike
-from scipy.interpolate import RegularGridInterpolator, interp1d
+from scipy.interpolate import interp1d
 from scipy.integrate import solve_ivp
+from importlib.resources import files as importfiles
+from spindler.src.interpolator import RegularGridInterpolatorNNextrapol
+from spindler import tables
+
     
 class Solver():
     """Abstract class defining the common methods to access the derivatives of
@@ -150,24 +155,6 @@ class Solver():
         DJ = 3/2 + 1/2*Da + (1-q)/(q**2+q)*Dq - e/(1-e**2)*De
         return DJ
 
-class RegularGridInterpolatorNNextrapol:
-    """A regular grid interpolator that uses the value of the nearest point when
-    called outside of its bounds.
-    """
-    def __init__(self, points, values, method='linear'):
-        self.interp = RegularGridInterpolator(points, values, method=method,
-                                           bounds_error=False, fill_value=np.nan)
-        self.nearest = RegularGridInterpolator(points, values, method='nearest',
-                                           bounds_error=False, fill_value=None)
-
-    def __call__(self, xi):
-        vals = self.interp(xi)
-        idxs = np.isnan(vals)
-        nears = self.nearest(xi)
-        vals[idxs] = nears[idxs]
-        return vals
-        
-    
 class Solver_Siwek23(Solver):
     """Circumbinary disk model based on the simulations in
     Siwek et al. 2023 (2023MNRAS.518.5059S)
@@ -176,11 +163,11 @@ class Solver_Siwek23(Solver):
     It is defined for eccentricity between 0 and 0.8, and mass ratio between 0.1
     and 1.
     """
-    def __init__(self, path_to_tables = "../../tables/"):
+    def __init__(self):
         # Read the tables from Siwek et al 2023
-        adota_table = pd.read_csv(path_to_tables+"adota_siwek23.csv")
+        adota_table = pd.read_csv(importfiles(tables)/"adota_siwek23.csv")
         adota_table.columns = [float(x) for x in adota_table.columns]
-        edot_table = pd.read_csv(path_to_tables+"edot_siwek23.csv")
+        edot_table = pd.read_csv(importfiles(tables)/"edot_siwek23.csv")
         edot_table.columns = [float(x) for x in edot_table.columns]
 
         q_list = np.array(adota_table.index)
@@ -189,7 +176,7 @@ class Solver_Siwek23(Solver):
         self.adota = RegularGridInterpolatorNNextrapol((q_list, e_list), np.array(adota_table.values))
         self.edot = RegularGridInterpolatorNNextrapol((q_list, e_list), np.array(edot_table.values))
 
-        lambda_table = pd.read_csv(path_to_tables+"lambda_siwek23.csv")
+        lambda_table = pd.read_csv(importfiles(tables)/"lambda_siwek23.csv")
         lambda_table.columns = [float(x) for x in lambda_table.columns]
 
         q_list = lambda_table.index
@@ -251,10 +238,10 @@ class Solver_DD21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self, path_to_tables = "../../tables/"):
+    def __init__(self):
         # Read the tables from D'Orazio and Duffell 2021
-        adota_table = pd.read_csv(path_to_tables+"adota_DD21.csv")
-        edot_table = pd.read_csv(path_to_tables+"edot_DD21.csv")
+        adota_table = pd.read_csv(importfiles(tables)/"adota_DD21.csv")
+        edot_table = pd.read_csv(importfiles(tables)/"edot_DD21.csv")
 
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
         self.edot = interp1d(edot_table.e, edot_table.edot, fill_value="extrapolate")
@@ -319,12 +306,12 @@ class Solver_Zrake21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self, path_to_tables = "../../tables/"):
+    def __init__(self):
         # Read the tables from Zrake+2021
-        adota_table = pd.read_csv(path_to_tables+"adota_zrake21.csv")
+        adota_table = pd.read_csv(importfiles(tables)/"adota_zrake21.csv")
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
 
-        edot_table = pd.read_csv(path_to_tables+"edot_zrake21.csv")
+        edot_table = pd.read_csv(importfiles(tables)/"edot_zrake21.csv")
         self.edot = interp1d(edot_table.e, edot_table.edot, fill_value="extrapolate")
         
     def get_Da(self, q:ArrayLike, e:ArrayLike) -> ArrayLike:
