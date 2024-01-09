@@ -6,7 +6,7 @@ from numpy.typing import ArrayLike
 from scipy.interpolate import interp1d
 from scipy.integrate import solve_ivp
 from importlib.resources import files as importfiles
-from spindler.src.spindler.interpolator import RegularGridInterpolatorNNextrapol
+from interpolator import RegularGridInterpolatorNNextrapol
 from spindler import tables
 
     
