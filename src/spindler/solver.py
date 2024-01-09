@@ -6,9 +6,7 @@ from numpy.typing import ArrayLike
 from scipy.interpolate import interp1d
 from scipy.integrate import solve_ivp
 from importlib.resources import files as importfiles
-from interpolator import RegularGridInterpolatorNNextrapol
-from spindler import tables
-
+from spindler.interpolator import RegularGridInterpolatorNNextrapol
     
 class Solver():
     """Abstract class defining the common methods to access the derivatives of
@@ -165,9 +163,9 @@ class Solver_Siwek23(Solver):
     """
     def __init__(self):
         # Read the tables from Siwek et al 2023
-        adota_table = pd.read_csv(importfiles(tables)/"adota_siwek23.csv")
+        adota_table = pd.read_csv(importfiles("spindler.tables")/"adota_siwek23.csv")
         adota_table.columns = [float(x) for x in adota_table.columns]
-        edot_table = pd.read_csv(importfiles(tables)/"edot_siwek23.csv")
+        edot_table = pd.read_csv(importfiles("spindler.tables")/"edot_siwek23.csv")
         edot_table.columns = [float(x) for x in edot_table.columns]
 
         q_list = np.array(adota_table.index)
@@ -176,7 +174,7 @@ class Solver_Siwek23(Solver):
         self.adota = RegularGridInterpolatorNNextrapol((q_list, e_list), np.array(adota_table.values))
         self.edot = RegularGridInterpolatorNNextrapol((q_list, e_list), np.array(edot_table.values))
 
-        lambda_table = pd.read_csv(importfiles(tables)/"lambda_siwek23.csv")
+        lambda_table = pd.read_csv(importfiles("spindler.tables")/"lambda_siwek23.csv")
         lambda_table.columns = [float(x) for x in lambda_table.columns]
 
         q_list = lambda_table.index
@@ -240,8 +238,8 @@ class Solver_DD21(Solver):
     """
     def __init__(self):
         # Read the tables from D'Orazio and Duffell 2021
-        adota_table = pd.read_csv(importfiles(tables)/"adota_DD21.csv")
-        edot_table = pd.read_csv(importfiles(tables)/"edot_DD21.csv")
+        adota_table = pd.read_csv(importfiles("spindler.tables")/"adota_DD21.csv")
+        edot_table = pd.read_csv(importfiles("spindler.tables")/"edot_DD21.csv")
 
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
         self.edot = interp1d(edot_table.e, edot_table.edot, fill_value="extrapolate")
@@ -308,10 +306,10 @@ class Solver_Zrake21(Solver):
     """
     def __init__(self):
         # Read the tables from Zrake+2021
-        adota_table = pd.read_csv(importfiles(tables)/"adota_zrake21.csv")
+        adota_table = pd.read_csv(importfiles("spindler.tables")/"adota_zrake21.csv")
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
 
-        edot_table = pd.read_csv(importfiles(tables)/"edot_zrake21.csv")
+        edot_table = pd.read_csv(importfiles("spindler.tables")/"edot_zrake21.csv")
         self.edot = interp1d(edot_table.e, edot_table.edot, fill_value="extrapolate")
         
     def get_Da(self, q:ArrayLike, e:ArrayLike) -> ArrayLike:
