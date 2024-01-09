@@ -45,7 +45,7 @@ There are two basic ways to use the spindler.
 
 ```python
 import numpy as np
-import matptplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 from spindler.solver import Solver_Siwek23, Solver_DD21, Solver_Zrake21
 
