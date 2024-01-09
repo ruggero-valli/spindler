@@ -1,10 +1,10 @@
 Welcome to spindler's documentation!
 ====================================
 
-.. automodule:: spindler.src.solver
+.. automodule:: spindler.solver
     :members:
 
-.. automodule:: spindler.src.interpolator
+.. automodule:: spindler.interpolator
     :members:
 
 .. toctree::

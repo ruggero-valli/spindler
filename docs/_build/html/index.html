@@ -6,9 +6,10 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>spindler 1.0 documentation</title>
+        <title>spindler 0.1.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
     
@@ -123,7 +124,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">spindler 1.0 documentation</div></a>
+      <a href="#"><div class="brand">spindler 0.1.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +147,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">spindler 1.0 documentation</span>
+  <span class="sidebar-brand-text">spindler 0.1.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -187,16 +188,16 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-spindler.src.solver">
-<span id="welcome-to-spindler-s-documentation"></span><h1>Welcome to spindler’s documentation!<a class="headerlink" href="#module-spindler.src.solver" title="Link to this heading">#</a></h1>
+          <section id="module-spindler.solver">
+<span id="welcome-to-spindler-s-documentation"></span><h1>Welcome to spindler’s documentation!<a class="headerlink" href="#module-spindler.solver" title="Link to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.src.solver.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="headerlink" href="#spindler.src.solver.Solver" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="headerlink" href="#spindler.solver.Solver" title="Link to this definition">#</a></dt>
 <dd><p>Abstract class defining the common methods to access the derivatives of
 the binary parameters and means to compute their evolution.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver.evolve">
-<span class="sig-name descname"><span class="pre">evolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accreted_mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LSODA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#spindler.src.solver.Solver.evolve" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver.evolve">
+<span class="sig-name descname"><span class="pre">evolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accreted_mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LSODA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#spindler.solver.Solver.evolve" title="Link to this definition">#</a></dt>
 <dd><p>Compute the evolution of the binary system</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -225,8 +226,8 @@ m (ArrayLike): mass of the binary</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver.get_DE">
-<span class="sig-name descname"><span class="pre">get_DE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver.get_DE" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver.get_DE">
+<span class="sig-name descname"><span class="pre">get_DE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_DE" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the orbital energy E with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -246,8 +247,8 @@ mass of the binary m.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver.get_DJ">
-<span class="sig-name descname"><span class="pre">get_DJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver.get_DJ" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver.get_DJ">
+<span class="sig-name descname"><span class="pre">get_DJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_DJ" title="Link to this definition">#</a></dt>
 <dd><p>Computes derivative of the orbital angular momentum J with
 respect to the mass of the binary m.</p>
 <dl class="field-list simple">
@@ -267,8 +268,8 @@ respect to the mass of the binary m.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver.get_Da" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver.get_Da">
+<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_Da" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the semimajor axis a with respect to the
 mass of the binary m.
 This function is implemented in the child classes.</p>
@@ -289,8 +290,8 @@ This function is implemented in the child classes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver.get_De" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver.get_De">
+<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_De" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the eccentricity e with respect to the
 mass of the binary m.
 This function is implemented in the child classes.</p>
@@ -311,8 +312,8 @@ This function is implemented in the child classes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver.get_Dq" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver.get_Dq">
+<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_Dq" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the mass ratio e with respect to the
 mass of the binary m.
 This function is implemented in the child classes.</p>
@@ -335,14 +336,14 @@ This function is implemented in the child classes.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_DD21">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.src.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_DD21</span></span><a class="headerlink" href="#spindler.src.solver.Solver_DD21" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_DD21">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_DD21</span></span><a class="headerlink" href="#spindler.solver.Solver_DD21" title="Link to this definition">#</a></dt>
 <dd><p>Circumbinary disk model based on the simulations in
 D’Orazio and Duffell 2021 (2021ApJ…914L..21D)</p>
 <p>It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_DD21.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_DD21.get_Da" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_DD21.get_Da">
+<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_DD21.get_Da" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the semimajor axis a with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -363,8 +364,8 @@ a warning.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_DD21.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_DD21.get_De" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_DD21.get_De">
+<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_DD21.get_De" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the eccentricity e with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -385,8 +386,8 @@ a warning.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_DD21.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_DD21.get_Dq" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_DD21.get_Dq">
+<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_DD21.get_Dq" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the mass ratio e with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -409,16 +410,16 @@ a warning.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Siwek23">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.src.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_Siwek23</span></span><a class="headerlink" href="#spindler.src.solver.Solver_Siwek23" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_Siwek23</span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23" title="Link to this definition">#</a></dt>
 <dd><p>Circumbinary disk model based on the simulations in
 Siwek et al. 2023 (2023MNRAS.518.5059S)
 Siwek et al. 2023 (2023MNRAS.522.2707S)</p>
 <p>It is defined for eccentricity between 0 and 0.8, and mass ratio between 0.1
 and 1.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Siwek23.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_Siwek23.get_Da" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23.get_Da">
+<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23.get_Da" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the semimajor axis a with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -438,8 +439,8 @@ mass of the binary m.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Siwek23.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_Siwek23.get_De" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23.get_De">
+<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23.get_De" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the eccentricity e with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -459,8 +460,8 @@ mass of the binary m.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Siwek23.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_Siwek23.get_Dq" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23.get_Dq">
+<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23.get_Dq" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the mass ratio e with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -482,14 +483,14 @@ mass of the binary m.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Zrake21">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.src.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_Zrake21</span></span><a class="headerlink" href="#spindler.src.solver.Solver_Zrake21" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_Zrake21</span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21" title="Link to this definition">#</a></dt>
 <dd><p>Circumbinary disk model based on the simulations in
 Zrake et al. 2021 (2021ApJ…909L..13Z)</p>
 <p>It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Zrake21.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_Zrake21.get_Da" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21.get_Da">
+<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21.get_Da" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the semimajor axis a with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -510,8 +511,8 @@ a warning.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Zrake21.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_Zrake21.get_De" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21.get_De">
+<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21.get_De" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the eccentricity e with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -532,8 +533,8 @@ a warning.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="spindler.src.solver.Solver_Zrake21.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.src.solver.Solver_Zrake21.get_Dq" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21.get_Dq">
+<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21.get_Dq" title="Link to this definition">#</a></dt>
 <dd><p>Computes the derivative of the mass ratio e with respect to the
 mass of the binary m.</p>
 <dl class="field-list simple">
@@ -555,9 +556,9 @@ a warning.</p></li>
 
 </dd></dl>
 
-<dl class="py class" id="module-spindler.src.interpolator">
-<dt class="sig sig-object py" id="spindler.src.interpolator.RegularGridInterpolatorNNextrapol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.src.interpolator.</span></span><span class="sig-name descname"><span class="pre">RegularGridInterpolatorNNextrapol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spindler.src.interpolator.RegularGridInterpolatorNNextrapol" title="Link to this definition">#</a></dt>
+<dl class="py class" id="module-spindler.interpolator">
+<dt class="sig sig-object py" id="spindler.interpolator.RegularGridInterpolatorNNextrapol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.interpolator.</span></span><span class="sig-name descname"><span class="pre">RegularGridInterpolatorNNextrapol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spindler.interpolator.RegularGridInterpolatorNNextrapol" title="Link to this definition">#</a></dt>
 <dd><p>A regular grid interpolator that uses the value of the nearest point when
 called outside of its bounds.</p>
 </dd></dl>
@@ -612,34 +613,34 @@ called outside of its bounds.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Welcome to spindler’s documentation!</a><ul>
-<li><a class="reference internal" href="#spindler.src.solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.src.solver.Solver.evolve"><code class="docutils literal notranslate"><span class="pre">Solver.evolve()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver.get_DE"><code class="docutils literal notranslate"><span class="pre">Solver.get_DE()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver.get_DJ"><code class="docutils literal notranslate"><span class="pre">Solver.get_DJ()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver.get_De"><code class="docutils literal notranslate"><span class="pre">Solver.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver.get_Dq()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
+<li><a class="reference internal" href="#spindler.solver.Solver.evolve"><code class="docutils literal notranslate"><span class="pre">Solver.evolve()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver.get_DE"><code class="docutils literal notranslate"><span class="pre">Solver.get_DE()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver.get_DJ"><code class="docutils literal notranslate"><span class="pre">Solver.get_DJ()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver.get_Da()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver.get_De"><code class="docutils literal notranslate"><span class="pre">Solver.get_De()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver.get_Dq()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_DD21"><code class="docutils literal notranslate"><span class="pre">Solver_DD21</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_DD21.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_DD21.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_DD21.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_Dq()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_DD21"><code class="docutils literal notranslate"><span class="pre">Solver_DD21</span></code></a><ul>
+<li><a class="reference internal" href="#spindler.solver.Solver_DD21.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_Da()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_DD21.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_De()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_DD21.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_Dq()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Siwek23"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Siwek23.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Siwek23.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Siwek23.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_Dq()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23</span></code></a><ul>
+<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_Da()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_De()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_Dq()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Zrake21"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Zrake21.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Zrake21.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.src.solver.Solver_Zrake21.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_Dq()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21</span></code></a><ul>
+<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_Da()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_De()</span></code></a></li>
+<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_Dq()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spindler.src.interpolator.RegularGridInterpolatorNNextrapol"><code class="docutils literal notranslate"><span class="pre">RegularGridInterpolatorNNextrapol</span></code></a></li>
+<li><a class="reference internal" href="#spindler.interpolator.RegularGridInterpolatorNNextrapol"><code class="docutils literal notranslate"><span class="pre">RegularGridInterpolatorNNextrapol</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -652,9 +653,10 @@ called outside of its bounds.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=f2a433a1"></script>
+</div><script src="_static/documentation_options.js?v=fd825880"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
     </body>
 </html>
