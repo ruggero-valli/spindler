@@ -9,4 +9,11 @@ src/spindler.egg-info/SOURCES.txt
 src/spindler.egg-info/dependency_links.txt
 src/spindler.egg-info/requires.txt
 src/spindler.egg-info/top_level.txt
+src/spindler/tables/adota_DD21.csv
+src/spindler/tables/adota_siwek23.csv
+src/spindler/tables/adota_zrake21.csv
+src/spindler/tables/edot_DD21.csv
+src/spindler/tables/edot_siwek23.csv
+src/spindler/tables/edot_zrake21.csv
+src/spindler/tables/lambda_siwek23.csv
 tests/test_spindler.py

@@ -10,7 +10,7 @@ authors = [
     {name = "Ruggero Valli", email = "ruggerovalli@gmail.com"},
 ]
 readme = "README.md"
-version = "0.1.3"
+version = "0.1.4"
 classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Astronomy",
@@ -28,3 +28,6 @@ dependencies = [
 [project.urls]
 Documentation = "https://spindler.readthedocs.io/"
 Repository = "https://github.com/ruggero-valli/spindler/"
+
+[tool.setuptools.package-data]
+"spindler.tables" = ["*.csv"]
