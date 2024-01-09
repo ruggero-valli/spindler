@@ -28,9 +28,3 @@ dependencies = [
 [project.urls]
 Documentation = "https://spindler.readthedocs.io/"
 Repository = "https://github.com/ruggero-valli/spindler/"
-
-[tool.setuptools.packages.find]
-where = ["src/spindler/tables"]
-
-[tool.setuptools.package-data]
-mypkg = ["*.csv"]

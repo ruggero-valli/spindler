@@ -1,9 +1,0 @@
-LICENSE
-README.md
-pyproject.toml
-src/spindler/tables/spindler.egg-info/PKG-INFO
-src/spindler/tables/spindler.egg-info/SOURCES.txt
-src/spindler/tables/spindler.egg-info/dependency_links.txt
-src/spindler/tables/spindler.egg-info/requires.txt
-src/spindler/tables/spindler.egg-info/top_level.txt
-tests/test_spindler.py
