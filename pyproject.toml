@@ -10,7 +10,7 @@ authors = [
     {name = "Ruggero Valli", email = "ruggerovalli@gmail.com"},
 ]
 readme = "README.md"
-version = "0.1.4"
+version = "1.0.0"
 classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Astronomy",

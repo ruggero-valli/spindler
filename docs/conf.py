@@ -22,7 +22,7 @@ copyright = '2024, Ruggero Valli'
 author = 'Ruggero Valli'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.4'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
