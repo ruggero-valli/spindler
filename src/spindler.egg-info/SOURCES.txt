@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+src/spindler/__init__.py
+src/spindler/interpolator.py
+src/spindler/solver.py
+src/spindler.egg-info/PKG-INFO
+src/spindler.egg-info/SOURCES.txt
+src/spindler.egg-info/dependency_links.txt
+src/spindler.egg-info/requires.txt
+src/spindler.egg-info/top_level.txt
+src/tests/__init__.py
+src/tests/tests.py

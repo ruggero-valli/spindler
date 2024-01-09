@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spindler"
+description = "A python package to compute the long-term orbital evolution of a binary interacting with a circumbinary disk."
+keywords = ["astrophysics", "binary system", "circumbinary disk", "orbital evolution"]
+authors = [
+    {name = "Ruggero Valli", email = "ruggerovalli@gmail.com"},
+]
+readme = "README.md"
+version = "0.1.0"
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">= 3.11"
+dependencies = [
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+    "scipy>=1.10",
+    "pandas>=2.1",
+]
+
+[project.urls]
+Documentation = "https://spindler.readthedocs.io/"
+Repository = "https://github.com/ruggero-valli/spindler/"
