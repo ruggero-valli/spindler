@@ -212,7 +212,8 @@ class Solver_Siwek23(Solver):
         """
         points = np.dstack((q,e))
         De = self.edot(points)
-        return np.where(e>0, De/e, 0)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            return np.where(e>0, De/e, 0)
     
     def get_Dq(self, q:ArrayLike, e:ArrayLike) -> ArrayLike:
         """Computes the derivative of the mass ratio e with respect to the
@@ -236,7 +237,9 @@ class Solver_DD21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self):
+    def __init__(self, print_warnings=False):
+        self.print_warnings = print_warnings
+        
         # Read the tables from D'Orazio and Duffell 2021
         adota_table = pd.read_csv(importfiles("spindler.tables")/"adota_DD21.csv")
         edot_table = pd.read_csv(importfiles("spindler.tables")/"edot_DD21.csv")
@@ -256,7 +259,7 @@ class Solver_DD21(Solver):
         Returns:
             ArrayLike: dloga/dlogm
         """
-        if np.any(q != 1):
+        if self.print_warnings and np.any(q != 1):
             print(f"warning: mass ratio different from 1")
             
         Da = self.adota(e)
@@ -274,11 +277,12 @@ class Solver_DD21(Solver):
         Returns:
             ArrayLike: dloge/dlogm
         """
-        if np.any(q != 1):
+        if self.print_warnings and np.any(q != 1):
             print(f"warning: mass ratio different from 1")
             
         De = self.edot(e)
-        return np.where(e>0, De/e, 0)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            return np.where(e>0, De/e, 0)
                 
     def get_Dq(self, q:ArrayLike, e:ArrayLike) -> ArrayLike:
         """Computes the derivative of the mass ratio e with respect to the
@@ -292,7 +296,7 @@ class Solver_DD21(Solver):
         Returns:
             ArrayLike: dlogq/dlogm
         """
-        if np.any(q != 1):
+        if self.print_warnings and np.any(q != 1):
             print(f"warning: mass ratio different from 1")
         
         return np.zeros(e.shape)
@@ -304,7 +308,9 @@ class Solver_Zrake21(Solver):
     
     It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.
     """
-    def __init__(self):
+    def __init__(self, print_warnings=False):
+        self.print_warnings = print_warnings
+        
         # Read the tables from Zrake+2021
         adota_table = pd.read_csv(importfiles("spindler.tables")/"adota_zrake21.csv")
         self.adota = interp1d(adota_table.e, adota_table.adota, fill_value="extrapolate")
@@ -324,7 +330,7 @@ class Solver_Zrake21(Solver):
         Returns:
             ArrayLike: dloga/dlogm
         """
-        if np.any(q != 1):
+        if self.print_warnings and np.any(q != 1):
             print(f"warning: mass ratio different from 1")
             
         Da = self.adota(e)
@@ -342,11 +348,12 @@ class Solver_Zrake21(Solver):
         Returns:
             ArrayLike: dloge/dlogm
         """
-        if np.any(q != 1):
+        if self.print_warnings and np.any(q != 1):
             print(f"warning: mass ratio different from 1")
         
         De = self.edot(e)
-        return np.where(e>0, De/e, 0)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            return np.where(e>0, De/e, 0)
         
     
     def get_Dq(self, q:ArrayLike, e:ArrayLike) -> ArrayLike:
@@ -361,6 +368,6 @@ class Solver_Zrake21(Solver):
         Returns:
             ArrayLike: dlogq/dlogm
         """
-        if np.any(q != 1):
+        if self.print_warnings and np.any(q != 1):
             print(f"warning: mass ratio different from 1")
         return np.zeros(e.shape)

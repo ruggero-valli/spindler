@@ -72,7 +72,7 @@ class TestSolverSiwek23(unittest.TestCase):
 class TestSolverZrake21(unittest.TestCase):
 
     def setUp(self):
-        self.solver = Solver_Zrake21()
+        self.solver = Solver_Zrake21(print_warnings=False)
 
     def test_get_Da_independence_on_q(self):
         q_values = np.array([0.1, 0.2, 0.3])
@@ -181,7 +181,7 @@ class TestSolverZrake21(unittest.TestCase):
 class TestSolverDD21(unittest.TestCase):
 
     def setUp(self):
-        self.solver = Solver_DD21()
+        self.solver = Solver_DD21(print_warnings=False)
 
     def test_get_Da_independence_on_q(self):
         q_values = np.array([0.1, 0.2, 0.3])
