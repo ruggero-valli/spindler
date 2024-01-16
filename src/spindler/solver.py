@@ -150,6 +150,7 @@ class Solver():
 
         # By differentiating the orbital angular momentum 
         # J = \mu \sqrt{GMa(1-e^2)}
+        # where \mu=M q/(1+q)^2 is the reduced mass:
         DJ = 3/2 + 1/2*Da + (1-q)/(q**2+q)*Dq - e/(1-e**2)*De
         return DJ
 
