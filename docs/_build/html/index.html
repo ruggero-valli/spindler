@@ -3,13 +3,12 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+<link rel="author" title="About these documents" href="about.html" /><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="About spindler" href="about.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>spindler 0.1.4 documentation</title>
+        <title>spindler 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
     
@@ -124,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">spindler 0.1.4 documentation</div></a>
+      <a href="#"><div class="brand">spindler 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -135,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -147,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">spindler 0.1.4 documentation</span>
+  <span class="sidebar-brand-text">spindler 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -155,7 +154,14 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About spindler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a></li>
+</ul>
+
 </div>
 </div>
 
@@ -182,388 +188,36 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="module-spindler.solver">
-<span id="welcome-to-spindler-s-documentation"></span><h1>Welcome to spindler’s documentation!<a class="headerlink" href="#module-spindler.solver" title="Link to this heading">#</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="spindler.solver.Solver">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="headerlink" href="#spindler.solver.Solver" title="Link to this definition">#</a></dt>
-<dd><p>Abstract class defining the common methods to access the derivatives of
-the binary parameters and means to compute their evolution.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver.evolve">
-<span class="sig-name descname"><span class="pre">evolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accreted_mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'LSODA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ArrayLike</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#spindler.solver.Solver.evolve" title="Link to this definition">#</a></dt>
-<dd><p>Compute the evolution of the binary system</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>accreted_mass</strong> (<em>float</em>) – mass accreted to the binary, in units of initial
-binary mass m0.</p></li>
-<li><p><strong>q0</strong> (<em>float</em>) – initial mass ratio</p></li>
-<li><p><strong>e0</strong> (<em>float</em>) – initial eccentricity</p></li>
-<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – integration method. See scipy solve_ivp documentation.
-Defaults to ‘LSODA’.</p></li>
-<li><p><strong>rtol</strong> (<em>float</em><em>, </em><em>optional</em>) – relative tolerance. Defaults to 1e-2.</p></li>
-<li><p><strong>atol</strong> (<em>float</em><em>, </em><em>optional</em>) – absolute tolerane. Defaults to 1e-5.</p></li>
-<li><p><strong>**kwargs</strong> – keywords arguments passed to solve_ivp</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>semimajor axis
-q (ArrayLike): mass ratio
-e (ArrayLike): eccentricity
-m (ArrayLike): mass of the binary</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>a (ArrayLike)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver.get_DE">
-<span class="sig-name descname"><span class="pre">get_DE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_DE" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the orbital energy E with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dlogE/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver.get_DJ">
-<span class="sig-name descname"><span class="pre">get_DJ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_DJ" title="Link to this definition">#</a></dt>
-<dd><p>Computes derivative of the orbital angular momentum J with
-respect to the mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dlogJ/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_Da" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the semimajor axis a with respect to the
-mass of the binary m.
-This function is implemented in the child classes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloga/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_De" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the eccentricity e with respect to the
-mass of the binary m.
-This function is implemented in the child classes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloge/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver.get_Dq" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the mass ratio e with respect to the
-mass of the binary m.
-This function is implemented in the child classes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dlogq/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="spindler.solver.Solver_DD21">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_DD21</span></span><a class="headerlink" href="#spindler.solver.Solver_DD21" title="Link to this definition">#</a></dt>
-<dd><p>Circumbinary disk model based on the simulations in
-D’Orazio and Duffell 2021 (2021ApJ…914L..21D)</p>
-<p>It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_DD21.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_DD21.get_Da" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the semimajor axis a with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio. Ignored, but if different from 1 generates
-a warning.</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloga/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_DD21.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_DD21.get_De" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the eccentricity e with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio. Ignored, but if different from 1 generates
-a warning.</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloge/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_DD21.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_DD21.get_Dq" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the mass ratio e with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio. Ignored, but if different from 1 generates
-a warning.</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dlogq/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_Siwek23</span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23" title="Link to this definition">#</a></dt>
-<dd><p>Circumbinary disk model based on the simulations in
-Siwek et al. 2023 (2023MNRAS.518.5059S)
-Siwek et al. 2023 (2023MNRAS.522.2707S)</p>
-<p>It is defined for eccentricity between 0 and 0.8, and mass ratio between 0.1
-and 1.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23.get_Da" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the semimajor axis a with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloga/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23.get_De" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the eccentricity e with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloge/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Siwek23.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Siwek23.get_Dq" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the mass ratio e with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dlogq/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.solver.</span></span><span class="sig-name descname"><span class="pre">Solver_Zrake21</span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21" title="Link to this definition">#</a></dt>
-<dd><p>Circumbinary disk model based on the simulations in
-Zrake et al. 2021 (2021ApJ…909L..13Z)</p>
-<p>It is defined for eccentricity between 0 and 0.8, and mass ratio equal to 1.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21.get_Da">
-<span class="sig-name descname"><span class="pre">get_Da</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21.get_Da" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the semimajor axis a with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio. Ignored, but if different from 1 generates
-a warning.</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloga/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21.get_De">
-<span class="sig-name descname"><span class="pre">get_De</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21.get_De" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the eccentricity e with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio. Ignored, but if different from 1 generates
-a warning.</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dloge/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="spindler.solver.Solver_Zrake21.get_Dq">
-<span class="sig-name descname"><span class="pre">get_Dq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ArrayLike</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ArrayLike</span></span></span><a class="headerlink" href="#spindler.solver.Solver_Zrake21.get_Dq" title="Link to this definition">#</a></dt>
-<dd><p>Computes the derivative of the mass ratio e with respect to the
-mass of the binary m.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>q</strong> (<em>ArrayLike</em>) – mass ratio. Ignored, but if different from 1 generates
-a warning.</p></li>
-<li><p><strong>e</strong> (<em>ArrayLike</em>) – eccentricity</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dlogq/dlogm</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ArrayLike</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class" id="module-spindler.interpolator">
-<dt class="sig sig-object py" id="spindler.interpolator.RegularGridInterpolatorNNextrapol">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">spindler.interpolator.</span></span><span class="sig-name descname"><span class="pre">RegularGridInterpolatorNNextrapol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#spindler.interpolator.RegularGridInterpolatorNNextrapol" title="Link to this definition">#</a></dt>
-<dd><p>A regular grid interpolator that uses the value of the nearest point when
-called outside of its bounds.</p>
-</dd></dl>
-
+          <section id="welcome-to-spindler-s-documentation">
+<h1>Welcome to spindler’s documentation!<a class="headerlink" href="#welcome-to-spindler-s-documentation" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About spindler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="about.html#models">Models</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Computing-the-evolution">Computing the evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#Computing-the-derivatives-of-the-orbital-parameters">Computing the derivatives of the orbital parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#spindler.solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#spindler.solver.Solver_DD21"><code class="docutils literal notranslate"><span class="pre">Solver_DD21</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#spindler.solver.Solver_Siwek23"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#spindler.solver.Solver_Zrake21"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#spindler.interpolator.RegularGridInterpolatorNNextrapol"><code class="docutils literal notranslate"><span class="pre">RegularGridInterpolatorNNextrapol</span></code></a></li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 <section id="indices-and-tables">
@@ -580,7 +234,15 @@ called outside of its bounds.</p>
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="about.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">About spindler</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           
         </div>
         <div class="bottom-of-page">
@@ -600,63 +262,16 @@ called outside of its bounds.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Welcome to spindler’s documentation!</a><ul>
-<li><a class="reference internal" href="#spindler.solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.solver.Solver.evolve"><code class="docutils literal notranslate"><span class="pre">Solver.evolve()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver.get_DE"><code class="docutils literal notranslate"><span class="pre">Solver.get_DE()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver.get_DJ"><code class="docutils literal notranslate"><span class="pre">Solver.get_DJ()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver.get_De"><code class="docutils literal notranslate"><span class="pre">Solver.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver.get_Dq()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#spindler.solver.Solver_DD21"><code class="docutils literal notranslate"><span class="pre">Solver_DD21</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.solver.Solver_DD21.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver_DD21.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver_DD21.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_DD21.get_Dq()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver_Siwek23.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_Siwek23.get_Dq()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21</span></code></a><ul>
-<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21.get_Da"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_Da()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21.get_De"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_De()</span></code></a></li>
-<li><a class="reference internal" href="#spindler.solver.Solver_Zrake21.get_Dq"><code class="docutils literal notranslate"><span class="pre">Solver_Zrake21.get_Dq()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#spindler.interpolator.RegularGridInterpolatorNNextrapol"><code class="docutils literal notranslate"><span class="pre">RegularGridInterpolatorNNextrapol</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=fd825880"></script>
+</div><script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>

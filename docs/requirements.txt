@@ -1,2 +1,4 @@
 sphinx==7.2.6
 furo==2023.9.10
+ipykernel=6.19.2
+nbsphinx=0.9.3

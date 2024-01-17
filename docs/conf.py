@@ -22,7 +22,7 @@ copyright = '2024, Ruggero Valli'
 author = 'Ruggero Valli'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+release = '1.0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,7 +31,12 @@ release = '1.0.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage',
-              'sphinx.ext.napoleon']
+              'sphinx.ext.napoleon', 'nbsphinx', 'myst_parser']
+
+nbsphinx_execute_arguments = [
+    "--InlineBackend.figure_formats={'png', 'svg','pdf'}",
+    "--InlineBackend.rc 'figure.dpi'=96",
+]
 
 autodoc_type_aliases = {
     'Iterable': 'Iterable',
