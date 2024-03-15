@@ -1,6 +1,7 @@
 #ifndef READ_CSV_H
-#define READ_CSV_H#include <stdio.h>
+#define READ_CSV_H
 
+#include <stdio.h>
 #include <stdbool.h>
 
 /**
@@ -17,5 +18,13 @@
  * @return int Returns 0 on success, non-zero on failure.
  */
 int read_csv(const char *filename, double ***table, int *NColumns, int *NRows, bool readHeader, char ***header, bool isWhitespaceSeparated, char separator);
+
+/**
+ * @brief Frees memory allocated for a 2D array.
+ * 
+ * @param array Pointer to the 2D array.
+ * @param len Number of rows in the array.
+ */
+void free2DArray(void **array, int len);
 
 #endif /* READ_CSV_H */

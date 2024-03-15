@@ -122,24 +122,20 @@ int readData(FILE *file, int NColumns, int *NRows, double ***table, bool isWhite
     char* line = NULL;
     int allocatedRows = 10;
     size_t size = 0;
-    if (getline(&line, &size, file) <= 0) {
-            fprintf(stderr, "Error in reading the line\n");
-            return 2;
-    }
     *NRows = 0;
-    *table = malloc(allocatedRows * sizeof(double *));
+    *table = malloc(allocatedRows * sizeof(*table));
     while (getline(&line, &size, file) > 0) {
         // Resize table if needed
         if (*NRows >= allocatedRows) {
             allocatedRows = allocatedRows*2;
-            *table = realloc(*table, allocatedRows * sizeof(double *));
+            *table = realloc(*table, allocatedRows * sizeof(*table));
             if (*table == NULL) {
                 fprintf(stderr, "Memory allocation failed\n");
                 free(line);
                 return 1;
             }
         }
-        (*table)[*NRows] = (double *)malloc(NColumns * sizeof(double));
+        (*table)[*NRows] = malloc(NColumns * sizeof(**table));
         if ((*table)[*NRows] == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             free(line);
@@ -156,6 +152,8 @@ int readData(FILE *file, int NColumns, int *NRows, double ***table, bool isWhite
         }
         if (count != NColumns) {
             fprintf(stderr, "Row %d does not have the expected number of columns\n", *NRows + 1);
+            free(line);
+            free2DArray((void **)*table, *NRows);
             return 4;
         }
         for (int i = 0; i < NColumns; i++) {
@@ -167,7 +165,6 @@ int readData(FILE *file, int NColumns, int *NRows, double ***table, bool isWhite
     free(line);
     return 0;
 }
-
 
 /**
  * @brief Reads a CSV file and stores its content in a 2D array.
