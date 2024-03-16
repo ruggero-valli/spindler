@@ -4,6 +4,13 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+/* error codes */
+enum {
+    RETURN_NO_ERROR,
+    RETURN_ALLOC_FAILED,
+    RETURN_READ_FILE_FILED,
+};
+
 /**
  * @brief Reads a CSV file and stores its content in a 2D array.
  * 

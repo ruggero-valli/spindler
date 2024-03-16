@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "read_csv.h"
+#include "csvreader.h"
 
 /**
  * @brief Frees memory allocated for a 2D array.
