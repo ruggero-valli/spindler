@@ -1,8 +1,23 @@
 #include <rinterpolate.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include "csvreader.h"
 
+/*error codes*/
+enum {
+    SPINDLER_NO_ERROR,
+    SPINDLER_ALLOC_FAILED,
+    SPINDLER_READ_FILE_FAILED,
+    SPINDLER_INIT_FAILED,
+};
+
+/**
+ * @brief Contains one interpolation table and its metadata.
+ * 
+ * It is initialized by spindler_init_interpolator.
+ * It is freed by spindler_free_interpolator.
+ */
 struct spindler_interpolator_t {
     double * table;
     unsigned int number_of_interpolation_parameters;
@@ -10,13 +25,25 @@ struct spindler_interpolator_t {
     struct rinterpolate_data_t* rinterpolate_data;
 };
 
-int spindler_free_interpolator(struct spindler_interpolator_t* spindler_interpolator){
+/**
+ * @brief Frees a splindler_interpolator
+ * Doesn't free the struct itself, the caller needs to call
+ * free(spindler_interpolator).
+ * @param spindler_interpolator the struct to free
+ */
+void spindler_free_interpolator(struct spindler_interpolator_t* spindler_interpolator){
     free(spindler_interpolator->table);
     rinterpolate_free_data(spindler_interpolator->rinterpolate_data);
     free(spindler_interpolator->rinterpolate_data);
-    return RETURN_NO_ERROR;
 }
 
+/**
+ * @brief Contains the a splindler_interpolator for each of the interpolated
+ * variable and the model name.
+ * 
+ * It is initialized by spindler_init.
+ * It is freed by spindler_free_data.
+ */
 struct spindler_data_t {
     char model_name[128];
     struct spindler_interpolator_t* edot_interp;
@@ -24,22 +51,33 @@ struct spindler_data_t {
     struct spindler_interpolator_t* qdot_interp;
 };
 
-// Doesn't free the spindler_data struct itself
-int spindler_free_data(struct spindler_data_t* spindler_data){
+/**
+ * @brief Frees a splindler_data
+ * Doesn't free the struct itself, the caller needs to call
+ * free(splindler_data).
+ * @param spindler_data the struct to free
+ */
+void spindler_free_data(struct spindler_data_t* spindler_data){
     spindler_free_interpolator(spindler_data->edot_interp);
     free(spindler_data->edot_interp);
     spindler_free_interpolator(spindler_data->adota_interp);
     free(spindler_data->adota_interp);
     spindler_free_interpolator(spindler_data->qdot_interp);
     free(spindler_data->qdot_interp);
-    return RETURN_NO_ERROR;
 }
 
-double spindler_init(){
+/**
+ * @brief Initialize a spindler_interpolator with the content of an interpolation
+ * table read from a file.
+ * 
+ * @param filename the location of the interpolation table
+ * @param spindler_interpolator the struct to initialize. It needs to be
+ *  allocated by the caller
+ * @return error code
+ */
+int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* spindler_interpolator){
     struct rinterpolate_data_t * rinterpolate_data = NULL;
     rinterpolate_counter_t status = rinterpolate_alloc_dataspace(&rinterpolate_data);
-
-    char *filename = "tables/Siwek23/edot.csv";
     double **csvTable = NULL;
     int NColumns;
     int NRows;
@@ -50,11 +88,81 @@ double spindler_init(){
     if (read_csv(filename, &csvTable, &NColumns, &NRows, readHeader, &header,
         isWhitespaceSeparated, separator) != 0){
         fprintf(stderr, "Problem reading csv");
-        return 1;
+        return SPINDLER_READ_FILE_FAILED;
     }
 }
 
+/**
+ * @brief Initialize a spindler_data struct with the interpolation tables of 
+ *  a given model.
+ * 
+ * @param model_name the name of the model. It has to correspond to the name of 
+ *  an existing subdirectory of `tables/`.
+ * @param spindler_data the struct to initialize. It has to be allocated by
+ *  the caller
+ * @return error code
+ */
+int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
+    strcpy(spindler_data->model_name, model_name);
+
+    /* Allocate the interpolators*/
+    spindler_data->edot_interp = NULL;
+    spindler_data->qdot_interp = NULL;
+    spindler_data->adota_interp = NULL;
+    spindler_data->edot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
+    if (spindler_data->edot_interp == NULL){
+        fprintf(stderr, "Memory allocation failed");
+        return SPINDLER_ALLOC_FAILED;
+    }
+    spindler_data->qdot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
+    if (spindler_data->qdot_interp == NULL){
+        fprintf(stderr, "Memory allocation failed");
+        free(spindler_data->edot_interp);
+        return SPINDLER_ALLOC_FAILED;
+    }
+    spindler_data->adota_interp = calloc(1, sizeof(struct spindler_interpolator_t));
+    if (spindler_data->adota_interp == NULL){
+        fprintf(stderr, "Memory allocation failed");
+        free(spindler_data->edot_interp);
+        free(spindler_data->qdot_interp);
+        return SPINDLER_ALLOC_FAILED;
+    }
+
+    /* Initialize the interpolators */
+    char filename[128];
+    sprintf(filename, "tables/%s/edot.csv", model_name);
+    if (spindler_init_interpolator(filename, spindler_data->edot_interp) != SPINDLER_NO_ERROR){
+        fprintf(stderr, "Failed initializing edot interpolator");
+        return SPINDLER_INIT_FAILED;
+    }
+    sprintf(filename, "tables/%s/qdot.csv", model_name);
+    if (spindler_init_interpolator(filename, spindler_data->qdot_interp) != SPINDLER_NO_ERROR){
+        fprintf(stderr, "Failed initializing qdot interpolator");
+        return SPINDLER_INIT_FAILED;
+    }
+    sprintf(filename, "tables/%s/adota.csv", model_name);
+    if (spindler_init_interpolator(filename, spindler_data->adota_interp) != SPINDLER_NO_ERROR){
+        fprintf(stderr, "Failed initializing adota interpolator");
+        return SPINDLER_INIT_FAILED;
+    }
+}
+
+/**
+ * @brief Compute the interpolation
+ * 
+ * @param q 
+ * @param e 
+ * @param interp 
+ * @param model_name 
+ * @return double 
+ */
 double spindler_interpolate(double q, double e, struct spindler_interpolator_t* interp, char* model_name){
+    /* The table is missing */
+    if (interp == NULL){
+        fprintf(stderr, "");
+        return 0;
+    }
+
     rinterpolate_float_t *table = interp->table;
     rinterpolate_counter_t N = interp->number_of_interpolation_parameters;
     rinterpolate_counter_t D = 1;
@@ -62,7 +170,6 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
     rinterpolate_float_t *x = calloc(N, sizeof(rinterpolate_float_t));
     rinterpolate_float_t r[1];
     int usecache = 0;
-    
     
     /* Fill the x array with the coordinates of the point to interpolate*/
     if (strcmp(model_name, "Siwek23") == 0){
