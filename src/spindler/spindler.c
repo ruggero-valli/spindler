@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include "csvreader.h"
 
 /*error codes*/
@@ -10,6 +11,7 @@ enum {
     SPINDLER_ALLOC_FAILED,
     SPINDLER_READ_FILE_FAILED,
     SPINDLER_INIT_FAILED,
+    SPINDLER_DIR_NOT_FOUND,
 };
 
 /**
@@ -105,45 +107,67 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* s
 int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
     strcpy(spindler_data->model_name, model_name);
 
-    /* Allocate the interpolators*/
-    spindler_data->edot_interp = NULL;
-    spindler_data->qdot_interp = NULL;
-    spindler_data->adota_interp = NULL;
-    spindler_data->edot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
-    if (spindler_data->edot_interp == NULL){
-        fprintf(stderr, "Memory allocation failed");
-        return SPINDLER_ALLOC_FAILED;
-    }
-    spindler_data->qdot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
-    if (spindler_data->qdot_interp == NULL){
-        fprintf(stderr, "Memory allocation failed");
-        free(spindler_data->edot_interp);
-        return SPINDLER_ALLOC_FAILED;
-    }
-    spindler_data->adota_interp = calloc(1, sizeof(struct spindler_interpolator_t));
-    if (spindler_data->adota_interp == NULL){
-        fprintf(stderr, "Memory allocation failed");
-        free(spindler_data->edot_interp);
-        free(spindler_data->qdot_interp);
-        return SPINDLER_ALLOC_FAILED;
+    /* Check existence of the directory */
+    struct stat st;
+    char dir_path[128], filename[128];
+    sprintf(dir_path, "tables/%s", model_name);
+    if (stat(dir_path, &st) == -1) {
+        fprintf(stderr, "Directory does not exist: %s\n", dir_path);
+        return SPINDLER_DIR_NOT_FOUND;
     }
 
-    /* Initialize the interpolators */
-    char filename[128];
-    sprintf(filename, "tables/%s/edot.csv", model_name);
-    if (spindler_init_interpolator(filename, spindler_data->edot_interp) != SPINDLER_NO_ERROR){
-        fprintf(stderr, "Failed initializing edot interpolator");
-        return SPINDLER_INIT_FAILED;
+    /* edot */
+    spindler_data->edot_interp = NULL;
+    sprintf(filename, "%s/edot.csv", dir_path);
+    /* check if file exists */
+    if (access(filename, F_OK) == 0) {
+        /* Allocate interpolator */
+        spindler_data->edot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
+        if (spindler_data->edot_interp == NULL){
+            fprintf(stderr, "Memory allocation failed");
+            return SPINDLER_ALLOC_FAILED;
+        }
+        /* Initialize interpolator */
+        if (spindler_init_interpolator(filename, spindler_data->edot_interp) != SPINDLER_NO_ERROR){
+            fprintf(stderr, "Failed initializing edot interpolator");
+            return SPINDLER_INIT_FAILED;
+        }
     }
-    sprintf(filename, "tables/%s/qdot.csv", model_name);
-    if (spindler_init_interpolator(filename, spindler_data->qdot_interp) != SPINDLER_NO_ERROR){
-        fprintf(stderr, "Failed initializing qdot interpolator");
-        return SPINDLER_INIT_FAILED;
+
+    /* qdot */
+    spindler_data->qdot_interp = NULL;
+    sprintf(filename, "%s/qdot.csv", dir_path);
+    /* check if file exists */
+    if (access(filename, F_OK) == 0) {
+        /* Allocate interpolator */
+        spindler_data->qdot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
+        if (spindler_data->qdot_interp == NULL){
+            fprintf(stderr, "Memory allocation failed");
+            return SPINDLER_ALLOC_FAILED;
+        }
+        /* Initialize interpolator */
+        if (spindler_init_interpolator(filename, spindler_data->qdot_interp) != SPINDLER_NO_ERROR){
+            fprintf(stderr, "Failed initializing qdot interpolator");
+            return SPINDLER_INIT_FAILED;
+        }
     }
-    sprintf(filename, "tables/%s/adota.csv", model_name);
-    if (spindler_init_interpolator(filename, spindler_data->adota_interp) != SPINDLER_NO_ERROR){
-        fprintf(stderr, "Failed initializing adota interpolator");
-        return SPINDLER_INIT_FAILED;
+
+    /* adota */
+    spindler_data->adota_interp = NULL;
+    sprintf(filename, "%s/adota.csv", dir_path);
+    /* check if file exists */
+    if (access(filename, F_OK) == 0) {
+        /* Allocate interpolator */
+        spindler_data->adota_interp = calloc(1, sizeof(struct spindler_interpolator_t));
+        if (spindler_data->adota_interp == NULL){
+            fprintf(stderr, "Memory allocation failed");
+            return SPINDLER_ALLOC_FAILED;
+        }
+        /* Initialize interpolator */
+        if (spindler_init_interpolator(filename, spindler_data->adota_interp) != SPINDLER_NO_ERROR){
+            fprintf(stderr, "Failed initializing adota interpolator");
+            return SPINDLER_INIT_FAILED;
+        }
     }
 }
 
