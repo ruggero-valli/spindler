@@ -80,7 +80,6 @@ void spindler_free_data(struct spindler_data_t* spindler_data){
  * @return error code
  */
 int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* interp){
-    //TODO
 
     /* Read csv */
     double **csvTable = NULL;
@@ -106,15 +105,27 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* i
         return SPINDLER_ALLOC_FAILED;
     }
 
+    /* Assign the values */
     interp->parameter_names = header;
-    interp->number_of_interpolation_parameters = NColumns-1;
+    interp->number_of_interpolation_parameters = NColumns-1; // The last column is data
     interp->number_of_interpolation_points = NRows;
 
-    rinterpolate_float_t *table = malloc(ND*L*sizeof(rinterpolate_float_t));
+    /* Allocate the table */
+    interp->table = NULL;
+    interp->table = malloc(NColumns*NRows*sizeof(rinterpolate_float_t));
+    if (interp->table == NULL){
+        fprintf(stderr, "Memory allocation failed");
+        free2DArray(csvTable, NRows);
+        free2DArray(header, NColumns);
+        rinterpolate_free_data(interp->rinterpolate_data);
+        free(interp->rinterpolate_data);
+        return SPINDLER_ALLOC_FAILED;
+    }
 
+    /* Fill the table */
     for (int i=0; i<NRows; i++){
         for (int j=0; j<NColumns; j++){
-            table[i*ND+j] = csvTable[i][j];
+            interp->table[i*NColumns+j] = csvTable[i][j];
         }
     }
     free2DArray(csvTable, NRows);
