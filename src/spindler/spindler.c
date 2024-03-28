@@ -1,9 +1,11 @@
-#include <rinterpolate.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <rinterpolate.h>
 #include "csvreader.h"
+
+#define SPINDLER_BUFSIZE 128
 
 /*error codes*/
 enum {
@@ -13,6 +15,7 @@ enum {
     SPINDLER_INIT_FAILED,
     SPINDLER_DIR_NOT_FOUND,
 };
+
 
 /**
  * @brief Contains one interpolation table and its metadata.
@@ -49,7 +52,7 @@ void spindler_free_interpolator(struct spindler_interpolator_t* interp){
  * It is freed by spindler_free_data.
  */
 struct spindler_data_t {
-    char model_name[128];
+    char model_name[SPINDLER_BUFSIZE];
     struct spindler_interpolator_t* edot_interp;
     struct spindler_interpolator_t* adota_interp;
     struct spindler_interpolator_t* qdot_interp;
@@ -129,6 +132,7 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* i
         }
     }
     free2DArray(csvTable, NRows);
+    return SPINDLER_NO_ERROR;
 }
 
 /**
@@ -146,7 +150,7 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
 
     /* Check existence of the directory */
     struct stat st;
-    char dir_path[128], filename[128];
+    char dir_path[SPINDLER_BUFSIZE], filename[SPINDLER_BUFSIZE];
     sprintf(dir_path, "tables/%s", model_name);
     if (stat(dir_path, &st) == -1) {
         fprintf(stderr, "Directory does not exist: %s\n", dir_path);
@@ -206,21 +210,21 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
             return SPINDLER_INIT_FAILED;
         }
     }
+
+    return SPINDLER_NO_ERROR;
 }
 
 /**
  * @brief Compute the interpolation
  * 
- * @param q 
- * @param e 
- * @param interp 
- * @param model_name 
- * @return double 
+ * @param q mass ratio
+ * @param e eccentricity
+ * @param interp interpolator struct
+ * @return result of the interpolation 
  */
-double spindler_interpolate(double q, double e, struct spindler_interpolator_t* interp, char* model_name){
+double spindler_interpolate(double q, double e, struct spindler_interpolator_t* interp){
     /* The table is missing */
     if (interp == NULL){
-        fprintf(stderr, "");
         return 0;
     }
 
@@ -232,14 +236,14 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
     rinterpolate_float_t r[1];
     int usecache = 0;
     
-    /* Fill the x array with the coordinates of the point to interpolate*/
-    if (strcmp(model_name, "Siwek23") == 0){
-        x[0] = q; x[1] = e;
-    } else if ((strcmp(model_name, "DD21") || 
-                strcmp(model_name, "Zrake21"))){
-        x[0] = e;
-        if (fabs(q-1) > 0.01){
-            printf("Warning: ignoring mass ratio %.3lf != 1.0", q);
+    /* Fill the x array with the coordinates of the point to interpolate */
+    for (int i=0; i<N; i++){
+        if (strcmp(interp->parameter_names[i], "e") == 0){
+            x[i] = e;
+        } else if (strcmp(interp->parameter_names[i], "q") == 0){
+            x[i] = q;
+        } else {
+            fprintf(stderr, "Warning: parameter %s not recognized", interp->parameter_names[i]);
         }
     }
 
@@ -265,9 +269,9 @@ double spindler_get_De(double q, double e, struct spindler_data_t* spindler_data
     char* model_name = (spindler_data->model_name);
     double De;
     if (e != 0){
-        return De = spindler_interpolate(q, e, interp, model_name)/e;
+        De = spindler_interpolate(q, e, interp)/e;
     } else {
-        return De = 0;
+        De = 0;
     }
     return De;
 }
@@ -275,14 +279,14 @@ double spindler_get_De(double q, double e, struct spindler_data_t* spindler_data
 double spindler_get_Dq(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->qdot_interp);
     char* model_name = (spindler_data->model_name);
-    double Dq = spindler_interpolate(q, e, interp, model_name)/q;
+    double Dq = spindler_interpolate(q, e, interp)/q;
     return Dq;
 }
 
 double spindler_get_Da(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->adota_interp);
     char* model_name = (spindler_data->model_name);
-    double Da = spindler_interpolate(q, e, interp, model_name);
+    double Da = spindler_interpolate(q, e, interp);
     return Da;
 }
 
