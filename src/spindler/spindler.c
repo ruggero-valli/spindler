@@ -21,9 +21,10 @@ enum {
  * It is freed by spindler_free_interpolator.
  */
 struct spindler_interpolator_t {
-    double * table;
+    rinterpolate_float_t* table;
+    char** parameter_names;
     unsigned int number_of_interpolation_parameters;
-    unsigned int number_of_interpolation_points;
+    unsigned int number_of_interpolation_points;    
     struct rinterpolate_data_t* rinterpolate_data;
 };
 
@@ -33,10 +34,11 @@ struct spindler_interpolator_t {
  * free(spindler_interpolator).
  * @param spindler_interpolator the struct to free
  */
-void spindler_free_interpolator(struct spindler_interpolator_t* spindler_interpolator){
-    free(spindler_interpolator->table);
-    rinterpolate_free_data(spindler_interpolator->rinterpolate_data);
-    free(spindler_interpolator->rinterpolate_data);
+void spindler_free_interpolator(struct spindler_interpolator_t* interp){
+    free(interp->table);
+    free2DArray(interp->parameter_names, interp->number_of_interpolation_parameters);
+    rinterpolate_free_data(interp->rinterpolate_data);
+    free(interp->rinterpolate_data);
 }
 
 /**
@@ -73,13 +75,14 @@ void spindler_free_data(struct spindler_data_t* spindler_data){
  * table read from a file.
  * 
  * @param filename the location of the interpolation table
- * @param spindler_interpolator the struct to initialize. It needs to be
+ * @param interp the struct to initialize. It needs to be
  *  allocated by the caller
  * @return error code
  */
-int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* spindler_interpolator){
-    struct rinterpolate_data_t * rinterpolate_data = NULL;
-    rinterpolate_counter_t status = rinterpolate_alloc_dataspace(&rinterpolate_data);
+int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* interp){
+    //TODO
+
+    /* Read csv */
     double **csvTable = NULL;
     int NColumns;
     int NRows;
@@ -92,6 +95,29 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* s
         fprintf(stderr, "Problem reading csv");
         return SPINDLER_READ_FILE_FAILED;
     }
+
+    /* Allocate rinterpolate_data */
+    interp->rinterpolate_data = NULL;
+    rinterpolate_alloc_dataspace(&(interp->rinterpolate_data));
+    if (interp->rinterpolate_data == NULL){
+        fprintf(stderr, "Memory allocation failed");
+        free2DArray(csvTable, NRows);
+        free2DArray(header, NColumns);
+        return SPINDLER_ALLOC_FAILED;
+    }
+
+    interp->parameter_names = header;
+    interp->number_of_interpolation_parameters = NColumns-1;
+    interp->number_of_interpolation_points = NRows;
+
+    rinterpolate_float_t *table = malloc(ND*L*sizeof(rinterpolate_float_t));
+
+    for (int i=0; i<NRows; i++){
+        for (int j=0; j<NColumns; j++){
+            table[i*ND+j] = csvTable[i][j];
+        }
+    }
+    free2DArray(csvTable, NRows);
 }
 
 /**
