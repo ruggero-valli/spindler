@@ -16,7 +16,6 @@ enum {
     SPINDLER_DIR_NOT_FOUND,
 };
 
-
 /**
  * @brief Contains one interpolation table and its metadata.
  * 
@@ -38,8 +37,10 @@ struct spindler_interpolator_t {
  * @param spindler_interpolator the struct to free
  */
 void spindler_free_interpolator(struct spindler_interpolator_t* interp){
+    printf("hei %lf\n", interp->table[0]);
     free(interp->table);
-    free2DArray(interp->parameter_names, interp->number_of_interpolation_parameters);
+    free2DArray((void **)(interp->parameter_names), interp->number_of_interpolation_parameters);
+    printf("hei2 %lf\n", interp->table[0]);
     rinterpolate_free_data(interp->rinterpolate_data);
     free(interp->rinterpolate_data);
 }
@@ -83,7 +84,6 @@ void spindler_free_data(struct spindler_data_t* spindler_data){
  * @return error code
  */
 int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* interp){
-
     /* Read csv */
     double **csvTable = NULL;
     int NColumns;
@@ -94,7 +94,7 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* i
     char separator = ',';
     if (read_csv(filename, &csvTable, &NColumns, &NRows, readHeader, &header,
         isWhitespaceSeparated, separator) != 0){
-        fprintf(stderr, "Problem reading csv");
+        fprintf(stderr, "Problem reading csv\n");
         return SPINDLER_READ_FILE_FAILED;
     }
 
@@ -102,9 +102,9 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* i
     interp->rinterpolate_data = NULL;
     rinterpolate_alloc_dataspace(&(interp->rinterpolate_data));
     if (interp->rinterpolate_data == NULL){
-        fprintf(stderr, "Memory allocation failed");
-        free2DArray(csvTable, NRows);
-        free2DArray(header, NColumns);
+        fprintf(stderr, "Memory allocation failed\n");
+        free2DArray((void **)csvTable, NRows);
+        free2DArray((void **)header, NColumns);
         return SPINDLER_ALLOC_FAILED;
     }
 
@@ -117,9 +117,9 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* i
     interp->table = NULL;
     interp->table = malloc(NColumns*NRows*sizeof(rinterpolate_float_t));
     if (interp->table == NULL){
-        fprintf(stderr, "Memory allocation failed");
-        free2DArray(csvTable, NRows);
-        free2DArray(header, NColumns);
+        fprintf(stderr, "Memory allocation failed\n");
+        free2DArray((void **)csvTable, NRows);
+        free2DArray((void **)header, NColumns);
         rinterpolate_free_data(interp->rinterpolate_data);
         free(interp->rinterpolate_data);
         return SPINDLER_ALLOC_FAILED;
@@ -131,7 +131,7 @@ int spindler_init_interpolator(char* filename, struct spindler_interpolator_t* i
             interp->table[i*NColumns+j] = csvTable[i][j];
         }
     }
-    free2DArray(csvTable, NRows);
+    free2DArray((void **)csvTable, NRows);
     return SPINDLER_NO_ERROR;
 }
 
@@ -165,12 +165,12 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
         /* Allocate interpolator */
         spindler_data->edot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
         if (spindler_data->edot_interp == NULL){
-            fprintf(stderr, "Memory allocation failed");
+            fprintf(stderr, "Memory allocation failed\n");
             return SPINDLER_ALLOC_FAILED;
         }
         /* Initialize interpolator */
         if (spindler_init_interpolator(filename, spindler_data->edot_interp) != SPINDLER_NO_ERROR){
-            fprintf(stderr, "Failed initializing edot interpolator");
+            fprintf(stderr, "Failed initializing edot interpolator\n");
             return SPINDLER_INIT_FAILED;
         }
     }
@@ -183,12 +183,12 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
         /* Allocate interpolator */
         spindler_data->qdot_interp = calloc(1, sizeof(struct spindler_interpolator_t));
         if (spindler_data->qdot_interp == NULL){
-            fprintf(stderr, "Memory allocation failed");
+            fprintf(stderr, "Memory allocation failed\n");
             return SPINDLER_ALLOC_FAILED;
         }
         /* Initialize interpolator */
         if (spindler_init_interpolator(filename, spindler_data->qdot_interp) != SPINDLER_NO_ERROR){
-            fprintf(stderr, "Failed initializing qdot interpolator");
+            fprintf(stderr, "Failed initializing qdot interpolator\n");
             return SPINDLER_INIT_FAILED;
         }
     }
@@ -201,16 +201,15 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
         /* Allocate interpolator */
         spindler_data->adota_interp = calloc(1, sizeof(struct spindler_interpolator_t));
         if (spindler_data->adota_interp == NULL){
-            fprintf(stderr, "Memory allocation failed");
+            fprintf(stderr, "Memory allocation failed\n");
             return SPINDLER_ALLOC_FAILED;
         }
         /* Initialize interpolator */
         if (spindler_init_interpolator(filename, spindler_data->adota_interp) != SPINDLER_NO_ERROR){
-            fprintf(stderr, "Failed initializing adota interpolator");
+            fprintf(stderr, "Failed initializing adota interpolator\n");
             return SPINDLER_INIT_FAILED;
         }
     }
-
     return SPINDLER_NO_ERROR;
 }
 
@@ -243,7 +242,7 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
         } else if (strcmp(interp->parameter_names[i], "q") == 0){
             x[i] = q;
         } else {
-            fprintf(stderr, "Warning: parameter %s not recognized", interp->parameter_names[i]);
+            fprintf(stderr, "Warning: parameter %s not recognized\n", interp->parameter_names[i]);
         }
     }
 
@@ -266,26 +265,24 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
 
 double spindler_get_De(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->edot_interp);
-    char* model_name = (spindler_data->model_name);
     double De;
     if (e != 0){
         De = spindler_interpolate(q, e, interp)/e;
     } else {
         De = 0;
     }
+
     return De;
 }
 
 double spindler_get_Dq(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->qdot_interp);
-    char* model_name = (spindler_data->model_name);
     double Dq = spindler_interpolate(q, e, interp)/q;
     return Dq;
 }
 
 double spindler_get_Da(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->adota_interp);
-    char* model_name = (spindler_data->model_name);
     double Da = spindler_interpolate(q, e, interp);
     return Da;
 }
@@ -321,85 +318,111 @@ double spindler_get_DJ(double q, double e, struct spindler_data_t* spindler_data
 
 
 int main(){
-    /* Number of parameters */
-    const rinterpolate_counter_t N = 2;
+    char* model_name = "Siwek23";
+    struct spindler_data_t* spindler_data = calloc(1, sizeof(struct spindler_data_t));
+    printf("1\n");
+    spindler_init(model_name, spindler_data);
+    printf("2\n");
 
-        /* Number of data */
-    const rinterpolate_counter_t D = 1;
+    double q=0.5, e=0.5;
+    double Dq, De, Da;
+    Dq = spindler_get_Dq(q, e, spindler_data);
+    printf("3\n");
+    printf("%lf\n", Dq);
+    De = spindler_get_De(q, e, spindler_data);
+    printf("4\n");
+    printf("%lf\n", De);
+    Da = spindler_get_Da(q, e, spindler_data);
+    printf("%lf\n", Da);
 
-    /* length of each line (in doubles) i.e. N+D */
-    const rinterpolate_counter_t ND = N + D;
-
-    /* make rinterpolate data (for cache etc.) */
-    struct rinterpolate_data_t * rinterpolate_data = NULL;
-    rinterpolate_counter_t status = rinterpolate_alloc_dataspace(&rinterpolate_data);
-
-    char *filename = "tables/Siwek23/edot.csv";
-    double **csvTable = NULL;
-    int NColumns;
-    int NRows;
-    bool readHeader = true;
-    char **header = NULL;
-    bool isWhitespaceSeparated = false;
-    char separator = ',';
-    if (read_csv(filename, &csvTable, &NColumns, &NRows, readHeader, &header,
-        isWhitespaceSeparated, separator) != 0){
-        fprintf(stderr, "Problem reading csv");
-        return 1;
-    }
-
-    /* total number of lines */
-    rinterpolate_counter_t L = NRows;
-
-    /* data table : it is up to you to set the data in here*/
-    rinterpolate_float_t *table = malloc(ND*L*sizeof(rinterpolate_float_t));
-
-    for (int i=0; i<NRows; i++){
-        for (int j=0; j<NColumns; j++){
-            table[i*ND+j] = csvTable[i][j];
-            //printf("%lf ", csvTable[i][j]);
-        }
-        //printf("\n");
-    }
-
-    /*
-        * Arrays for the interpolation location and
-        * interpolated data. You need to set
-        * the interpolation location, x.
-        */
-    rinterpolate_float_t x[N],r[D];
-
-    /* choose whether to cache (0=no, 1=yes) */
-    int usecache = 0;
-    x[0] = 0.5; x[1] = 0.1;
-
-    /* do the interpolation */
-    int steps = 3000000;
-    for (int i=0; i<steps; i++){
-        //x[0] = 0.1+i/(2.*steps);
-        //x[1] = i/(2.*steps);
-        //rinterpolate_free_data(rinterpolate_data);
-        //free(rinterpolate_data);
-        //rinterpolate_data = NULL;
-        rinterpolate(table,
-                    rinterpolate_data,
-                    N,
-                    D,
-                    L,
-                    x,
-                    r,
-                    usecache);
-        //printf("Result: %lf %lf %lf\n", x[0], x[1], r[0]);
-    }
+    printf("Dq: %lf, De: %lf, Da: %lf", Dq, De, Da);
+    printf("5\n");
 
 
-    /* the array r contains the result */
+    spindler_free_data(spindler_data);
+    printf("6\n");
+    free(spindler_data);
+    return 0;
 
-    /* ... rest of code ... */
+    // /* Number of parameters */
+    // const rinterpolate_counter_t N = 2;
+
+    //     /* Number of data */
+    // const rinterpolate_counter_t D = 1;
+
+    // /* length of each line (in doubles) i.e. N+D */
+    // const rinterpolate_counter_t ND = N + D;
+
+    // /* make rinterpolate data (for cache etc.) */
+    // struct rinterpolate_data_t * rinterpolate_data = NULL;
+    // rinterpolate_counter_t status = rinterpolate_alloc_dataspace(&rinterpolate_data);
+
+    // char *filename = "tables/Siwek23/edot.csv";
+    // double **csvTable = NULL;
+    // int NColumns;
+    // int NRows;
+    // bool readHeader = true;
+    // char **header = NULL;
+    // bool isWhitespaceSeparated = false;
+    // char separator = ',';
+    // if (read_csv(filename, &csvTable, &NColumns, &NRows, readHeader, &header,
+    //     isWhitespaceSeparated, separator) != 0){
+    //     fprintf(stderr, "Problem reading csv");
+    //     return 1;
+    // }
+
+    // /* total number of lines */
+    // rinterpolate_counter_t L = NRows;
+
+    // /* data table : it is up to you to set the data in here*/
+    // rinterpolate_float_t *table = malloc(ND*L*sizeof(rinterpolate_float_t));
+
+    // for (int i=0; i<NRows; i++){
+    //     for (int j=0; j<NColumns; j++){
+    //         table[i*ND+j] = csvTable[i][j];
+    //         //printf("%lf ", csvTable[i][j]);
+    //     }
+    //     //printf("\n");
+    // }
+
+    // /*
+    //     * Arrays for the interpolation location and
+    //     * interpolated data. You need to set
+    //     * the interpolation location, x.
+    //     */
+    // rinterpolate_float_t x[N],r[D];
+
+    // /* choose whether to cache (0=no, 1=yes) */
+    // int usecache = 0;
+    // x[0] = 0.5; x[1] = 0.1;
+
+    // /* do the interpolation */
+    // int steps = 3000000;
+    // for (int i=0; i<steps; i++){
+    //     //x[0] = 0.1+i/(2.*steps);
+    //     //x[1] = i/(2.*steps);
+    //     //rinterpolate_free_data(rinterpolate_data);
+    //     //free(rinterpolate_data);
+    //     //rinterpolate_data = NULL;
+    //     rinterpolate(table,
+    //                 rinterpolate_data,
+    //                 N,
+    //                 D,
+    //                 L,
+    //                 x,
+    //                 r,
+    //                 usecache);
+    //     //printf("Result: %lf %lf %lf\n", x[0], x[1], r[0]);
+    // }
 
 
-    /* free memory on exit */
-    rinterpolate_free_data(rinterpolate_data);
-    free(rinterpolate_data);
-    free2DArray((void**)header, NColumns);
+    // /* the array r contains the result */
+
+    // /* ... rest of code ... */
+
+
+    // /* free memory on exit */
+    // rinterpolate_free_data(rinterpolate_data);
+    // free(rinterpolate_data);
+    // free2DArray((void**)header, NColumns);
 }
