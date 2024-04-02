@@ -37,10 +37,8 @@ struct spindler_interpolator_t {
  * @param spindler_interpolator the struct to free
  */
 void spindler_free_interpolator(struct spindler_interpolator_t* interp){
-    printf("hei %lf\n", interp->table[0]);
     free(interp->table);
     free2DArray((void **)(interp->parameter_names), interp->number_of_interpolation_parameters);
-    printf("hei2 %lf\n", interp->table[0]);
     rinterpolate_free_data(interp->rinterpolate_data);
     free(interp->rinterpolate_data);
 }
@@ -66,12 +64,18 @@ struct spindler_data_t {
  * @param spindler_data the struct to free
  */
 void spindler_free_data(struct spindler_data_t* spindler_data){
-    spindler_free_interpolator(spindler_data->edot_interp);
-    free(spindler_data->edot_interp);
-    spindler_free_interpolator(spindler_data->adota_interp);
-    free(spindler_data->adota_interp);
-    spindler_free_interpolator(spindler_data->qdot_interp);
-    free(spindler_data->qdot_interp);
+    if (spindler_data->edot_interp != NULL){
+        spindler_free_interpolator(spindler_data->edot_interp);
+        free(spindler_data->edot_interp);
+    }
+    if (spindler_data->adota_interp != NULL){
+        spindler_free_interpolator(spindler_data->adota_interp);
+        free(spindler_data->adota_interp);
+    }
+    if (spindler_data->qdot_interp != NULL){
+        spindler_free_interpolator(spindler_data->qdot_interp);
+        free(spindler_data->qdot_interp);
+    }
 }
 
 /**
@@ -151,7 +155,7 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
     /* Check existence of the directory */
     struct stat st;
     char dir_path[SPINDLER_BUFSIZE], filename[SPINDLER_BUFSIZE];
-    sprintf(dir_path, "tables/%s", model_name);
+    snprintf(dir_path, SPINDLER_BUFSIZE, "tables/%s", model_name);
     if (stat(dir_path, &st) == -1) {
         fprintf(stderr, "Directory does not exist: %s\n", dir_path);
         return SPINDLER_DIR_NOT_FOUND;
@@ -159,7 +163,7 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
 
     /* edot */
     spindler_data->edot_interp = NULL;
-    sprintf(filename, "%s/edot.csv", dir_path);
+    snprintf(filename, SPINDLER_BUFSIZE, "tables/%s/edot.csv", model_name);
     /* check if file exists */
     if (access(filename, F_OK) == 0) {
         /* Allocate interpolator */
@@ -177,7 +181,7 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
 
     /* qdot */
     spindler_data->qdot_interp = NULL;
-    sprintf(filename, "%s/qdot.csv", dir_path);
+    snprintf(filename, SPINDLER_BUFSIZE, "tables/%s/qdot.csv", model_name);
     /* check if file exists */
     if (access(filename, F_OK) == 0) {
         /* Allocate interpolator */
@@ -195,7 +199,7 @@ int spindler_init(char* model_name, struct spindler_data_t* spindler_data){
 
     /* adota */
     spindler_data->adota_interp = NULL;
-    sprintf(filename, "%s/adota.csv", dir_path);
+    snprintf(filename, SPINDLER_BUFSIZE, "tables/%s/adota.csv", model_name);
     /* check if file exists */
     if (access(filename, F_OK) == 0) {
         /* Allocate interpolator */
@@ -232,6 +236,10 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
     rinterpolate_counter_t D = 1;
     rinterpolate_counter_t L = interp->number_of_interpolation_points;
     rinterpolate_float_t *x = calloc(N, sizeof(rinterpolate_float_t));
+    if (x == NULL){
+        fprintf(stderr, "Memory allocation failed\n");
+        return SPINDLER_ALLOC_FAILED;
+    }
     rinterpolate_float_t r[1];
     int usecache = 0;
     
@@ -258,8 +266,6 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
 
     /* free memory and return */
     free(x);
-    rinterpolate_free_data(interp->rinterpolate_data);
-    free(interp->rinterpolate_data);
     return r[0];
 }
 
@@ -318,29 +324,23 @@ double spindler_get_DJ(double q, double e, struct spindler_data_t* spindler_data
 
 
 int main(){
-    char* model_name = "Siwek23";
+    char* model_name = "Zrake21";
     struct spindler_data_t* spindler_data = calloc(1, sizeof(struct spindler_data_t));
-    printf("1\n");
+    if (spindler_data == NULL){
+        fprintf(stderr, "Memory allocation failed\n");
+        return SPINDLER_ALLOC_FAILED;
+    }
     spindler_init(model_name, spindler_data);
-    printf("2\n");
 
     double q=0.5, e=0.5;
     double Dq, De, Da;
     Dq = spindler_get_Dq(q, e, spindler_data);
-    printf("3\n");
-    printf("%lf\n", Dq);
     De = spindler_get_De(q, e, spindler_data);
-    printf("4\n");
-    printf("%lf\n", De);
     Da = spindler_get_Da(q, e, spindler_data);
-    printf("%lf\n", Da);
 
-    printf("Dq: %lf, De: %lf, Da: %lf", Dq, De, Da);
-    printf("5\n");
-
+    printf("Dq: %lf, De: %lf, Da: %lf\n", Dq, De, Da);
 
     spindler_free_data(spindler_data);
-    printf("6\n");
     free(spindler_data);
     return 0;
 
