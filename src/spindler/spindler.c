@@ -4,17 +4,7 @@
 #include <unistd.h>
 #include <rinterpolate.h>
 #include "csvreader.h"
-
-#define SPINDLER_BUFSIZE 128
-
-/*error codes*/
-enum {
-    SPINDLER_NO_ERROR,
-    SPINDLER_ALLOC_FAILED,
-    SPINDLER_READ_FILE_FAILED,
-    SPINDLER_INIT_FAILED,
-    SPINDLER_DIR_NOT_FOUND,
-};
+#include "spindler.h"
 
 /**
  * @brief Contains one interpolation table and its metadata.
@@ -42,20 +32,6 @@ void spindler_free_interpolator(struct spindler_interpolator_t* interp){
     rinterpolate_free_data(interp->rinterpolate_data);
     free(interp->rinterpolate_data);
 }
-
-/**
- * @brief Contains the a splindler_interpolator for each of the interpolated
- * variable and the model name.
- * 
- * It is initialized by spindler_init.
- * It is freed by spindler_free_data.
- */
-struct spindler_data_t {
-    char model_name[SPINDLER_BUFSIZE];
-    struct spindler_interpolator_t* edot_interp;
-    struct spindler_interpolator_t* adota_interp;
-    struct spindler_interpolator_t* qdot_interp;
-};
 
 /**
  * @brief Frees a splindler_data
@@ -269,6 +245,15 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
     return r[0];
 }
 
+/**
+ * @brief Computes the derivative of the eccentricity e with respect to the
+ *  mass of the binary m.
+ * 
+ * @param q mass ratio
+ * @param e eccentricity
+ * @param spindler_data data struct for the interpolation
+ * @return dloge/dlogm 
+ */
 double spindler_get_De(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->edot_interp);
     double De;
@@ -281,18 +266,46 @@ double spindler_get_De(double q, double e, struct spindler_data_t* spindler_data
     return De;
 }
 
+/**
+ * @brief Computes the derivative of the mass ratio q with respect to the
+ *  mass of the binary m.
+ * 
+ * @param q mass ratio
+ * @param e eccentricity
+ * @param spindler_data data struct for the interpolation
+ * @return dlogq/dlogm 
+ */
 double spindler_get_Dq(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->qdot_interp);
     double Dq = spindler_interpolate(q, e, interp)/q;
     return Dq;
 }
 
+/**
+ * @brief Computes the derivative of the semimajor axis a with respect to the
+ *  mass of the binary m.
+ * 
+ * @param q mass ratio
+ * @param e eccentricity
+ * @param spindler_data data struct for the interpolation
+ * @return dloga/dlogm 
+ */
 double spindler_get_Da(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* interp = (spindler_data->adota_interp);
     double Da = spindler_interpolate(q, e, interp);
     return Da;
 }
 
+
+/**
+ * @brief Computes the derivative of the orbital energy E with respect to the
+ *  mass of the binary m.
+ * 
+ * @param q mass ratio
+ * @param e eccentricity
+ * @param spindler_data data struct for the interpolation
+ * @return dlogE/dlogm 
+ */
 double spindler_get_DE(double q, double e, struct spindler_data_t* spindler_data){
     struct spindler_interpolator_t* adota_interp = (spindler_data->adota_interp);
     struct spindler_interpolator_t* qdot_interp = (spindler_data->qdot_interp);
@@ -308,6 +321,15 @@ double spindler_get_DE(double q, double e, struct spindler_data_t* spindler_data
     return DE;
 }
 
+/**
+ * @brief Computes the derivative of orbital angular momentum J with respect to the
+ *  mass of the binary m.
+ * 
+ * @param q mass ratio
+ * @param e eccentricity
+ * @param spindler_data data struct for the interpolation
+ * @return dlogJ/dlogm 
+ */
 double spindler_get_DJ(double q, double e, struct spindler_data_t* spindler_data){
     double Da = spindler_get_Da(q,e, spindler_data);
     double Dq = spindler_get_Dq(q,e, spindler_data);
@@ -320,109 +342,4 @@ double spindler_get_DJ(double q, double e, struct spindler_data_t* spindler_data
     */
     double DJ = 3/2 + 1/2*Da + (1-q)/(q*q + q)*Dq - e/(1-e*e)*De;
     return DJ;
-}
-
-
-int main(){
-    char* model_name = "Zrake21";
-    struct spindler_data_t* spindler_data = calloc(1, sizeof(struct spindler_data_t));
-    if (spindler_data == NULL){
-        fprintf(stderr, "Memory allocation failed\n");
-        return SPINDLER_ALLOC_FAILED;
-    }
-    spindler_init(model_name, spindler_data);
-
-    double q=0.5, e=0.5;
-    double Dq, De, Da;
-    Dq = spindler_get_Dq(q, e, spindler_data);
-    De = spindler_get_De(q, e, spindler_data);
-    Da = spindler_get_Da(q, e, spindler_data);
-
-    printf("Dq: %lf, De: %lf, Da: %lf\n", Dq, De, Da);
-
-    spindler_free_data(spindler_data);
-    free(spindler_data);
-    return 0;
-
-    // /* Number of parameters */
-    // const rinterpolate_counter_t N = 2;
-
-    //     /* Number of data */
-    // const rinterpolate_counter_t D = 1;
-
-    // /* length of each line (in doubles) i.e. N+D */
-    // const rinterpolate_counter_t ND = N + D;
-
-    // /* make rinterpolate data (for cache etc.) */
-    // struct rinterpolate_data_t * rinterpolate_data = NULL;
-    // rinterpolate_counter_t status = rinterpolate_alloc_dataspace(&rinterpolate_data);
-
-    // char *filename = "tables/Siwek23/edot.csv";
-    // double **csvTable = NULL;
-    // int NColumns;
-    // int NRows;
-    // bool readHeader = true;
-    // char **header = NULL;
-    // bool isWhitespaceSeparated = false;
-    // char separator = ',';
-    // if (read_csv(filename, &csvTable, &NColumns, &NRows, readHeader, &header,
-    //     isWhitespaceSeparated, separator) != 0){
-    //     fprintf(stderr, "Problem reading csv");
-    //     return 1;
-    // }
-
-    // /* total number of lines */
-    // rinterpolate_counter_t L = NRows;
-
-    // /* data table : it is up to you to set the data in here*/
-    // rinterpolate_float_t *table = malloc(ND*L*sizeof(rinterpolate_float_t));
-
-    // for (int i=0; i<NRows; i++){
-    //     for (int j=0; j<NColumns; j++){
-    //         table[i*ND+j] = csvTable[i][j];
-    //         //printf("%lf ", csvTable[i][j]);
-    //     }
-    //     //printf("\n");
-    // }
-
-    // /*
-    //     * Arrays for the interpolation location and
-    //     * interpolated data. You need to set
-    //     * the interpolation location, x.
-    //     */
-    // rinterpolate_float_t x[N],r[D];
-
-    // /* choose whether to cache (0=no, 1=yes) */
-    // int usecache = 0;
-    // x[0] = 0.5; x[1] = 0.1;
-
-    // /* do the interpolation */
-    // int steps = 3000000;
-    // for (int i=0; i<steps; i++){
-    //     //x[0] = 0.1+i/(2.*steps);
-    //     //x[1] = i/(2.*steps);
-    //     //rinterpolate_free_data(rinterpolate_data);
-    //     //free(rinterpolate_data);
-    //     //rinterpolate_data = NULL;
-    //     rinterpolate(table,
-    //                 rinterpolate_data,
-    //                 N,
-    //                 D,
-    //                 L,
-    //                 x,
-    //                 r,
-    //                 usecache);
-    //     //printf("Result: %lf %lf %lf\n", x[0], x[1], r[0]);
-    // }
-
-
-    // /* the array r contains the result */
-
-    // /* ... rest of code ... */
-
-
-    // /* free memory on exit */
-    // rinterpolate_free_data(rinterpolate_data);
-    // free(rinterpolate_data);
-    // free2DArray((void**)header, NColumns);
 }
