@@ -1,7 +1,9 @@
 # Spindler
 A python package to compute the long-term orbital evolution of a binary interacting with a circumbinary disk.
 
-Based on Valli et al. 2024 (in prep.)
+Based on [Valli et al. 2024](https://arxiv.org/abs/2401.17355).
+
+Find the c-based version at https://github.com/ruggero-valli/spindler-c
 
 ## Installation:
 ```bash
