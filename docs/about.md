@@ -1,5 +1,5 @@
 # About spindler
-A python package to compute the long-term orbital evolution of a binary interacting with a circumbinary disk, based on Valli et al. 2024 (in prep.)
+A python package to compute the long-term orbital evolution of a binary interacting with a circumbinary disk, based on Valli et al. 2024 (https://doi.org/10.48550/arXiv.2401.17355)
 
 ## Models
 spindler provides three alternative models of binary-disk interaction
